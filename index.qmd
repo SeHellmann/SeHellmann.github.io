@@ -1,0 +1,5 @@
+---
+title: "Sebastian Hellmann, MA"
+---
+
+Welcome to my toy website. I present some of my work here and try to embed some nice Shiny apps. 

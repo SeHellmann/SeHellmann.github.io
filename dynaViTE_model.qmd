@@ -1,0 +1,22 @@
+---
+title: "The dynaViTE model"
+---
+
+The dnyaViTE model is the latest iteration of a dynamic confidence model.
+
+<!--
+
+-->
+```{r, echo=FALSE}
+#| label: genmodel_DynaViTE
+#| fig-cap: "Generative Model for dynaViTE"
+#| warning: false
+#| echo: false
+
+source("files/genmodel_dynaViTE.R")
+pdWEV
+```
+
+
+Here, we can see simulations for the 2DSD model
+<iframe height="900" width="100%" frameborder="no" src="https://sehellmann.shinyapps.io/shinyaccumulators/"> </iframe>
