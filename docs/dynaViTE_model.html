@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sebastian Hellmann’s website - The dynaViTE model</title>
+<title>Sebastian Hellmann’s website - The dynamic visibility, time, and evidence model (dynaViTE)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,6 +59,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -86,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./dynaViTE_model.html" rel="" target="" aria-current="page">
- <span class="menu-text">The dynaViTE model</span></a>
+ <span class="menu-text">The dynamic visibility, time, and evidence model (dynaViTE)</span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
@@ -100,14 +102,22 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#short-description-of-the-dynavite-model" id="toc-short-description-of-the-dynavite-model" class="nav-link active" data-scroll-target="#short-description-of-the-dynavite-model">Short description of the dynaViTE model</a></li>
+  <li><a href="#simulation-of-the-dynavite-model" id="toc-simulation-of-the-dynavite-model" class="nav-link" data-scroll-target="#simulation-of-the-dynavite-model">Simulation of the dynaViTE model</a></li>
+  <li><a href="#mathematical-details" id="toc-mathematical-details" class="nav-link" data-scroll-target="#mathematical-details">Mathematical details</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">The dynaViTE model</h1>
+<h1 class="title">The dynamic visibility, time, and evidence model (dynaViTE)</h1>
 </div>
 
 
@@ -122,10 +132,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>The dnyaViTE model is the latest iteration of a dynamic confidence model.</p>
-<!--
-
--->
+<section id="short-description-of-the-dynavite-model" class="level3">
+<h3 class="anchored" data-anchor-id="short-description-of-the-dynavite-model">Short description of the dynaViTE model</h3>
+<p>The dnyaViTE model is a mathematical model describing how confidence judgments are computed in dynamical evidence accumulation framework. It is based on the drift diffusion model. A noisy accumulation process (the decision process) accrues decision relevant information about the stimulus until a certain level of evidence is reached. At this time point the decision process hits an upper or a lower threshold, each representing one decision alternative. A decision is triggered for the choice corresponding to the reached threshold. DynaViTE generalizes the model by the assumption of a post-decisional accumulation (based on the two-stage dynamic signal detection theory of Pleskac &amp; Busemeyer, 2010). The decision proccess is not killed when it reaches a threshold, but continues to accumulate evidence for a fixed period of time (( ). In addition, there is a second accumulation taking place in the so-called visibility process. It accrues information of the difficulty of the decision, which is not related to the stimulus identity (like presentation time or any other context information which may be informative for how difficult the task is). An internal confidence variable is computed as follows. After the whole accumulation period (decision time + post-decisional accumulation time), the accumulated decision evidence from the decision process and the visibility information from the visibility process are combined in a weighted sum and divided by the total accumulation time to some power (a parameter ( ). To report confidence we assume that observers compare this confidence variable to a set of criteria to form a discrete confidence report.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -136,9 +145,38 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<p>Here, we can see simulations for the 2DSD model <iframe height="900" width="100%" frameborder="no" src="https://sehellmann.shinyapps.io/shinyaccumulators/"> </iframe></p>
+<p>Vizualization of the dynaViTE model.</p>
+<p>See below so simulate the behavior of the model and farer below for all mathematical details.</p>
+</section>
+<section id="simulation-of-the-dynavite-model" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="simulation-of-the-dynavite-model">Simulation of the dynaViTE model</h3>
+<!--
+
+-->
+<div class="column-screen-inset">
+<iframe height="700" width="100%" frameborder="no" src="https://sehellmann.shinyapps.io/shinyaccumulators/">
+</iframe>
+</div>
+</section>
+<section id="mathematical-details" class="level3">
+<h3 class="anchored" data-anchor-id="mathematical-details">Mathematical details</h3>
+<section id="the-decision-process" class="level4">
+<h4 class="anchored" data-anchor-id="the-decision-process">The decision process</h4>
+<p>Mathematically, the decision process is a Wiener process <span class="math inline">\(X\)</span>, bounded from below and above by two time-constant thresholds, <span class="math inline">\(0\)</span> and <span class="math inline">\(a&gt;0\)</span>. The decision process starts at a starting point <span class="math inline">\(X(0)=az\)</span> and evolves with a constant drift <span class="math inline">\(\mu\)</span> and a diffusion constant <span class="math inline">\(s\)</span> (which is often set to 1 as a scaling factor when fitting the model to empirical data). In accordance with the drift diffusion model (Ratcliff &amp; McKoon, 2008), the model includes between-trial variability of starting point and drift rate. The relative starting point <span class="math inline">\(z\)</span> varies uniformly with range <span class="math inline">\(sz\)</span> and the drift rate is normally distributed between trials with standard deviation <span class="math inline">\(s_\nu\)</span> and mean <span class="math inline">\(\nu\)</span>. As soon as the process crosses one of the boundaries, a decision is triggered, i.e.&nbsp;the decision time is <span class="math inline">\(T_D = \min\{t |X(t)\notin [0,a]\}\)</span> . The response <span class="math inline">\(R\)</span> is 1, if <span class="math inline">\(X(T_D )\geq a\)</span>, and it is -1, if <span class="math inline">\(X(T_D )\leq 0\)</span>. Up to this point the model is identical to the drift diffusion model of decision-making. #### Post-decisional accumulation First, the model assumes that the decision process is not killed at decision time but continues to accumulate evidence for some period <span class="math inline">\(\tau\)</span>. This feature is called post-decisional accumulation (Pleskac &amp; Busemeyer, 2010). #### Parallel accumulation of visibility Second, dynaViTE includes a second process evolving in parallel to the decision process. We refer to the second process as the visibility process. The visibility process is assumed to accrue information about task irrelevant stimulus features which are informative about task difficulty but not for stimulus identity. Formally, the visibility process is a second Wiener process <span class="math inline">\(Vis\)</span>, which starts at 0 and evolves with constant drift rate and diffusion constant. The diffusion constant of the visibility process is an extra parameter <span class="math inline">\(s_{Vis}\)</span>. The drift rate of the visibility process is also assumed to vary between trials according to a normal distribution with standard deviation <span class="math inline">\(\sigma_{Vis}\)</span> and mean drift rate <span class="math inline">\(\mu_{Vis}\)</span>. #### Computation of the confidence variable The internal confidence variable is computed as a weighted sum of accrued evidence in the decision process and the visibility process during the decision and post-decisional accumulation time, divided by a power of the accumulation time. Formally, the internal confidence variable is represented by <span class="math display">\[c_{dynWEV}=\frac{wR(X(T_D+\tau )-az)+(1-w)Vis(T_D+\tau )}{(T_D +\tau )^\lambda},\]</span> where <span class="math inline">\(w\in [0,1]\)</span> is the weight on decision evidence. The multiplication of the accumulated decision evidence with the decision response <span class="math inline">\(R\)</span> leads to higher confidence when the accumulated evidence supports the decision. Because <span class="math inline">\(R=-1\)</span> represents a “lower” decision, a smaller value of <span class="math inline">\(X(T_D+\tau )\)</span> and thus a smaller value for <span class="math inline">\(X(T_D+\tau )-az\)</span> would support the decision and thus increase confidence. The parameter <span class="math inline">\(\lambda \geq 0\)</span> represent the penatly of accumulation time on confidence. The term in the denominator leads to a decrease of confidence for longer decision accumulation times, even if the final amount of evidence would be the same. The reasoning behind this is that longer responses are usually related to lower confidence (Rahnev et al., 2020).</p>
+<p>The confidence variable is compared to a set of criteria <span class="math inline">\(\vartheta_{R,i},i=1,...k-1\)</span> to form a discrete confidence judgment with <span class="math inline">\(k\)</span> steps. Precisely, if the choice is <span class="math inline">\(R\)</span> then the reported confidence is <span class="math inline">\(K\)</span>, if <span class="math inline">\(c_{dynaViTE} \in [\vartheta_{R,K-1},\vartheta_{R,K}]\)</span>, with <span class="math inline">\(\vartheta_{R,0} = -\infty\)</span> and <span class="math inline">\(\vartheta_{R,k}=\infty\)</span>.</p>
+</section>
+<section id="connection-to-other-models" class="level4">
+<h4 class="anchored" data-anchor-id="connection-to-other-models">Connection to other models</h4>
+<p>This model includes some other dynamic models of confidence published in the literature before as special cases (Hellmann et al., 2023). Most importanty, the dynaViTE model is based on the dynWEV model which does not include the explicit accumulation time penalty in the confidence variable (i.e.&nbsp;<span class="math inline">\(\lambda=0\)</span>). In addition, as the two-stage dynamic signal detection theory (2DSD; Pleskac &amp; Busemeyer, 2010) is a special case of dynWEV for <span class="math inline">\(w=1\)</span>, is is also a special case for dynaViTE when <span class="math inline">\(\lambda=0\)</span> and <span class="math inline">\(w=1\)</span>. Finally, we denote the special case of dynaViTE with only <span class="math inline">\(w=1\)</span> as 2DSDT. In this case, the visibility process does not influence confidence at all, such that only the decision process determines choice as well as confidence via post-decisional accumulation. The confidence variable in 2DSDT is then solely based on accumulated evidence about stimulus identity over accumulation time, such that 2DSDT represents the analogous generalization of 2DSD with explicit influence of accumulation time in confidence.</p>
+</section>
+<section id="usage-of-the-model-with-empirical-data" class="level4">
+<h4 class="anchored" data-anchor-id="usage-of-the-model-with-empirical-data">Usage of the model with empirical data</h4>
+<p>The model can be applied to binary choice tasks. The direction of the decision drift rate usually depends on the true stimulus identity <span class="math inline">\(S\in \{-1, 1\}\)</span>. Moreover, in many experimental tasks, the difficulty of the decision is manipulated which is often assumed to change the magnitude <span class="math inline">\(d&gt;0\)</span> of the mean drift rate. Therefore, the mean decision drift rate could be computed by <span class="math inline">\(\nu=Sd\)</span>.</p>
+<p>The visibility process is stochastically inpedendent of the decision process. However, in an experimental situation where task difficulty is manipulated, it may be plausible to assume that changes in difficulty may be percieved independently of the decision relevant information about stimulus identity. Therefore, the mean drift of the visibility process also depends on <span class="math inline">\(d\)</span>. So far, we used to set <span class="math inline">\(\mu_{Vis}=d\)</span> directly in our applications (Hellmann et al., 2023). Thus, the visibility process is independent of the decision process, despite both being influenced by task difficulty <span class="math inline">\(d\)</span>. This also means, the visibility process has always a non-negative mean drift rate.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
